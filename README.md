@@ -15,7 +15,7 @@ Below is the result of mean test set accuracy on Cora, Citeseer, and Pubmed data
 | GAT                   | 82.8     | 71.0     | 77.0     |
 | MoNet                 | 82.2     | 70.0     | 77.7     |
 | GraphSAGE-maxpool     | 77.4     | 67.0     | 76.6     |
-| __GCN-LPA__           | __91.2 (<font color=red>+8.4%</font>)__ | __72.4__ | __91.1__ |
+| __GCN-LPA__           | __91.2 (<span style="color:red;">+8.4</span>)__ | __72.4__ | __91.1__ |
 
 For more results, please refer to the original paper.
 
