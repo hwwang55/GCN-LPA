@@ -1,6 +1,6 @@
 # GCN-LPA
 
-This repository is the implementation of GCN-LPA:
+This repository is the implementation of GCN-LPA.
 
 
 ### Files in the folder

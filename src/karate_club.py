@@ -15,7 +15,7 @@ def draw_original_graph():
     original_g = nx.karate_club_graph()
 
     plt.figure(figsize=(6, 4.5))
-    node_color = ['tomato' if not j else 'forestgreen' for j in labels]
+    node_color = ['brown' if not j else 'skyblue' for j in labels]
 
     pos = nx.spring_layout(original_g)
     nx.draw_networkx_nodes(original_g, pos=pos, with_labels=False, node_color=node_color, node_size=50)
@@ -29,10 +29,12 @@ def draw_original_graph():
 
 def plot(index, pos):
     plt.subplot(141 + index).set_title('%d-layer' % (index + 1))
+    plt.xticks([])
+    plt.yticks([])
     for e in G.edges:
         plt.plot([pos[e[0], 0], pos[e[1], 0]], [pos[e[0], 1], pos[e[1], 1]], color='silver', lw=0.5, zorder=1)
-    plt.scatter([pos[~labels, 0]], [pos[~labels, 1]], color='tomato', s=80, zorder=2)
-    plt.scatter([pos[labels, 0]], [pos[labels, 1]], color='forestgreen', s=80, zorder=2)
+    plt.scatter([pos[~labels, 0]], [pos[~labels, 1]], color='brown', s=80, zorder=2)
+    plt.scatter([pos[labels, 0]], [pos[labels, 1]], color='skyblue', s=80, zorder=2)
 
 
 if __name__ == '__main__':
@@ -72,7 +74,7 @@ if __name__ == '__main__':
     # if you want to visualize the karate club graph, uncomment the next line
     # draw_original_graph()
 
-    plt.figure(figsize=(15, 2))
+    plt.figure(figsize=(15, 2.5))
     # plt.figure(figsize=(6, 4.5))
     plt.subplots_adjust(wspace=0.3, hspace=0.3)
 
