@@ -10,7 +10,7 @@ class GCN_LPA(object):
         self._build_inputs(features, labels)
         self._build_edges(adj)
         self._build_gcn(features[2][1], labels.shape[1], features[0].shape[0])
-        self._build_lp(labels.shape[1])
+        self._build_lpa(labels.shape[1])
         self._build_train()
         self._build_eval()
 
@@ -55,7 +55,7 @@ class GCN_LPA(object):
 
         self.prediction = tf.nn.softmax(self.outputs, axis=-1)
 
-    def _build_lp(self, label_dim):
+    def _build_lpa(self, label_dim):
         label_mask = tf.expand_dims(self.label_mask, -1)
         input_labels = label_mask * self.labels + (1 - label_mask) * tf.ones_like(self.labels) / label_dim
         label_list = [input_labels]
