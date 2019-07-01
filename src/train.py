@@ -1,6 +1,6 @@
 import numpy as np
 import tensorflow as tf
-from models import GCN_LPA
+from model import GCN_LPA
 
 
 def print_statistics(features, labels, adj):
@@ -26,7 +26,10 @@ def print_statistics(features, labels, adj):
 
 def train(args, data):
     features, labels, adj, train_mask, val_mask, test_mask = [data[i] for i in range(6)]
+
+    # uncomment the next line if you want to print statistics of the current dataset
     # print_statistics(features, labels, adj)
+
     model = GCN_LPA(args, features, labels, adj)
 
     def get_feed_dict(mask, dropout):
