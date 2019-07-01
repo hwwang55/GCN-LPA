@@ -104,12 +104,16 @@ def load_data(dataset):
     adj = nx.adjacency_matrix(graph)
     adj = sparse_to_tuple(adj)
 
-    idx_test = test_idx_range.tolist()
-    idx_train = range(len(y))
-    idx_val = range(len(y), len(y) + 500)
-    train_mask = get_mask(idx_train, labels.shape[0])
-    val_mask = get_mask(idx_val, labels.shape[0])
-    test_mask = get_mask(idx_test, labels.shape[0])
+    random_split = False
+    if random_split:
+        train_mask, val_mask, test_mask = split_dataset(labels)
+    else:
+        idx_test = test_idx_range.tolist()
+        idx_train = range(len(y))
+        idx_val = range(len(y), len(y) + 500)
+        train_mask = get_mask(idx_train, labels.shape[0])
+        val_mask = get_mask(idx_val, labels.shape[0])
+        test_mask = get_mask(idx_test, labels.shape[0])
 
     return features, labels, adj, train_mask, val_mask, test_mask
 
