@@ -37,33 +37,15 @@ def get_mask(idx, length):
     return np.array(mask, dtype=np.float64)
 
 
-def split_dataset(labels):
-    labels = np.argmax(labels, axis=-1)
-    label_to_indices_dict = dict()
-    for index in range(len(labels)):
-        label = labels[index]
-        if label in label_to_indices_dict:
-            label_to_indices_dict[label].append(index)
-        else:
-            label_to_indices_dict[label] = [index]
+def split_dataset(n_samples):
+    val_indices = np.random.choice(list(range(n_samples)), size=int(n_samples * 0.2), replace=False)
+    left = set(range(n_samples)) - set(val_indices)
+    test_indices = np.random.choice(list(left), size=int(n_samples * 0.2), replace=False)
+    train_indices = list(left - set(test_indices))
 
-    train_indices = []
-    val_indices = []
-    test_indices = []
-
-    for indices in label_to_indices_dict.values():
-        train_idx = np.random.choice(indices, size=20, replace=False)
-        remains = np.setdiff1d(indices, train_idx)
-        val_idx = np.random.choice(remains, size=30, replace=False)
-        test_idx = np.setdiff1d(remains, val_idx)
-
-        train_indices.extend(train_idx)
-        val_indices.extend(val_idx)
-        test_indices.extend(test_idx)
-
-    train_mask = get_mask(train_indices, len(labels))
-    eval_mask = get_mask(val_indices, len(labels))
-    test_mask = get_mask(test_indices, len(labels))
+    train_mask = get_mask(train_indices, n_samples)
+    eval_mask = get_mask(val_indices, n_samples)
+    test_mask = get_mask(test_indices, n_samples)
 
     return train_mask, eval_mask, test_mask
 
@@ -104,16 +86,7 @@ def load_data(dataset):
     adj = nx.adjacency_matrix(graph)
     adj = sparse_to_tuple(adj)
 
-    random_split = False
-    if random_split:
-        train_mask, val_mask, test_mask = split_dataset(labels)
-    else:
-        idx_test = test_idx_range.tolist()
-        idx_train = range(len(y))
-        idx_val = range(len(y), len(y) + 500)
-        train_mask = get_mask(idx_train, labels.shape[0])
-        val_mask = get_mask(idx_val, labels.shape[0])
-        test_mask = get_mask(idx_test, labels.shape[0])
+    train_mask, val_mask, test_mask = split_dataset(len(graph.nodes))
 
     return features, labels, adj, train_mask, val_mask, test_mask
 
@@ -137,7 +110,7 @@ def load_npz(dataset):
         adj += sp.eye(adj.shape[0])  # add self-loops
         adj = sparse_to_tuple(adj)
 
-    train_mask, val_mask, test_mask = split_dataset(labels)
+    train_mask, val_mask, test_mask = split_dataset(labels.shape[0])
 
     return features, labels, adj, train_mask, val_mask, test_mask
 

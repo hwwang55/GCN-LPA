@@ -24,7 +24,7 @@ def print_statistics(features, labels, adj):
     print('intra-class edge rate: %.4f' % intra_class_edge_rate)
 
 
-def train(args, data):
+def train(args, data, batch_test=False):
     features, labels, adj, train_mask, val_mask, test_mask = [data[i] for i in range(6)]
 
     # uncomment the next line if you want to print statistics of the current dataset
@@ -56,7 +56,11 @@ def train(args, data):
                 best_val_acc = val_acc
                 final_test_acc = test_acc
 
-            print('epoch %d    train loss: %.4f  acc: %.4f    val loss: %.4f  acc: %.4f    test loss: %.4f  acc: %.4f'
-                  % (epoch, train_loss, train_acc, val_loss, val_acc, test_loss, test_acc))
+            if not batch_test:
+                print('epoch %d   train loss: %.4f  acc: %.4f   val loss: %.4f  acc: %.4f   test loss: %.4f  acc: %.4f'
+                      % (epoch, train_loss, train_acc, val_loss, val_acc, test_loss, test_acc))
 
-        print('final test acc: %.4f' % final_test_acc)
+        if not batch_test:
+            print('final test acc: %.4f' % final_test_acc)
+        else:
+            return final_test_acc

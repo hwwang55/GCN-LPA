@@ -10,7 +10,7 @@ class GCN_LPA(object):
         self._build_inputs(features, labels)
         self._build_edges(adj)
         self._build_gcn(features[2][1], labels.shape[1], features[0].shape[0])
-        self._build_lpa(labels.shape[1])
+        self._build_lpa()
         self._build_train()
         self._build_eval()
 
@@ -55,9 +55,9 @@ class GCN_LPA(object):
 
         self.prediction = tf.nn.softmax(self.outputs, axis=-1)
 
-    def _build_lpa(self, label_dim):
+    def _build_lpa(self):
         label_mask = tf.expand_dims(self.label_mask, -1)
-        input_labels = label_mask * self.labels + (1 - label_mask) * tf.ones_like(self.labels) / label_dim
+        input_labels = label_mask * self.labels
         label_list = [input_labels]
 
         for _ in range(self.args.lpa_iter):
@@ -67,16 +67,16 @@ class GCN_LPA(object):
         self.predicted_label = label_list[-1]
 
     def _build_train(self):
-        # base loss
+        # GCN loss
         self.loss = tf.nn.softmax_cross_entropy_with_logits_v2(logits=self.outputs, labels=self.labels)
         self.loss = tf.reduce_sum(self.loss * self.label_mask) / tf.reduce_sum(self.label_mask)
 
-        # lpa loss
-        lpa_loss = tf.reduce_mean(
-            tf.nn.softmax_cross_entropy_with_logits_v2(logits=self.predicted_label, labels=self.labels))
+        # LPA loss
+        lpa_loss = tf.nn.softmax_cross_entropy_with_logits_v2(logits=self.predicted_label, labels=self.labels)
+        lpa_loss = tf.reduce_sum(lpa_loss * self.label_mask) / tf.reduce_sum(self.label_mask)
         self.loss += self.args.lpa_weight * lpa_loss
 
-        # l2 loss
+        # L2 loss
         for var in self.vars:
             self.loss += self.args.l2_weight * tf.nn.l2_loss(var)
 
