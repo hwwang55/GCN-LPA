@@ -27,7 +27,7 @@ GCN-LPA is an end-to-end model that unifies Graph Convolutional Neural Networks 
 ```
 $ python main.py
 ```
-**Note**: The default dataset is Cora.
+**Note**: The default dataset is Citeseer.
 Hyper-parameter settings for other datasets are provided in ``main.py``.
 
 
