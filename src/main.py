@@ -5,9 +5,9 @@ from time import time
 from data_loader import load_data, load_npz, load_random
 from train import train
 
-#seed = 234
-#np.random.seed(seed)
-#tf.set_random_seed(seed)
+seed = 234
+np.random.seed(seed)
+tf.set_random_seed(seed)
 
 parser = argparse.ArgumentParser()
 
@@ -22,10 +22,8 @@ parser.add_argument('--l2_weight', type=float, default=1e-4, help='weight of l2 
 parser.add_argument('--lpa_weight', type=float, default=10, help='weight of LP regularization')
 parser.add_argument('--dropout', type=float, default=0.2, help='dropout rate')
 parser.add_argument('--lr', type=float, default=0.05, help='learning rate')
-parser.add_argument('--ratio', type=float, default=1.0, help='ratio of training set')
 '''
 
-#'''
 # citeseer
 parser.add_argument('--dataset', type=str, default='citeseer', help='which dataset to use')
 parser.add_argument('--epochs', type=int, default=200, help='the number of epochs')
@@ -36,8 +34,6 @@ parser.add_argument('--l2_weight', type=float, default=5e-4, help='weight of l2 
 parser.add_argument('--lpa_weight', type=float, default=1, help='weight of LP regularization')
 parser.add_argument('--dropout', type=float, default=0, help='dropout rate')
 parser.add_argument('--lr', type=float, default=0.2, help='learning rate')
-parser.add_argument('--ratio', type=float, default=1.0, help='ratio of training set')
-#'''
 
 '''
 # pubmed
@@ -50,7 +46,6 @@ parser.add_argument('--l2_weight', type=float, default=2e-4, help='weight of l2 
 parser.add_argument('--lpa_weight', type=float, default=1, help='weight of LP regularization')
 parser.add_argument('--dropout', type=float, default=0, help='dropout rate')
 parser.add_argument('--lr', type=float, default=0.1, help='learning rate')
-parser.add_argument('--ratio', type=float, default=1.0, help='ratio of training set')
 '''
 
 '''
@@ -64,7 +59,6 @@ parser.add_argument('--l2_weight', type=float, default=1e-4, help='weight of l2 
 parser.add_argument('--lpa_weight', type=float, default=2, help='weight of LP regularization')
 parser.add_argument('--dropout', type=float, default=0.2, help='dropout rate')
 parser.add_argument('--lr', type=float, default=0.1, help='learning rate')
-parser.add_argument('--ratio', type=float, default=1.0, help='ratio of training set')
 '''
 
 '''
@@ -78,7 +72,6 @@ parser.add_argument('--l2_weight', type=float, default=1e-4, help='weight of l2 
 parser.add_argument('--lpa_weight', type=float, default=1, help='weight of LP regularization')
 parser.add_argument('--dropout', type=float, default=0.2, help='dropout rate')
 parser.add_argument('--lr', type=float, default=0.05, help='learning rate')
-parser.add_argument('--ratio', type=float, default=1.0, help='ratio of training set')
 '''
 
 '''
@@ -93,7 +86,6 @@ parser.add_argument('--l2_weight', type=float, default=5e-8, help='weight of l2 
 parser.add_argument('--lpa_weight', type=float, default=15, help='weight of LP regularization')
 parser.add_argument('--dropout', type=float, default=0.2, help='dropout rate')
 parser.add_argument('--lr', type=float, default=0.1, help='learning rate')
-parser.add_argument('--ratio', type=float, default=1.0, help='ratio of training set')
 '''
 
 t = time()
