@@ -93,4 +93,5 @@ ENV/
 
 
 # self added
-baseline/*
+.idea/*
+baselines/*
