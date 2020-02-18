@@ -3,7 +3,7 @@
 This repository is the implementation of GCN-LPA ([arXiv](https://arxiv.org/abs/2002.06755)):
 > Unifying Graph Convolutional Neural Networks and Label Propagation  
 > Hongwei Wang, Jure Leskovec  
-> arXiv Preprint
+> arXiv Preprint, 2020
 
 
 GCN-LPA is an end-to-end model that unifies Graph Convolutional Neural Networks (GCN) and Label Propagation Algorithm (LPA) for adaptive semi-supervised node classification.
